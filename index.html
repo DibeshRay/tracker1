@@ -16,7 +16,7 @@
         // Function to fetch all ERC-20 token transactions from the API for the given address
         async function fetchTokenTransactions(address) {
             const apiKey = "8YUX8ETXVV5Y6YNWCN6TECQXSXAZTVRFPS"; // Replace with your actual API key
-            const apiUrl = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&page=1&offset=100&startblock=0&endblock=999999999&sort=desc&apikey=${apiKey}`;
+            const apiUrl = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&page=1&offset=100&startblock=0&endblock=999999999&sort=asc&apikey=${apiKey}`;
 
             try {
                 const response = await fetch(apiUrl);
@@ -41,9 +41,6 @@
                 noTransactionsMessage.textContent = "No ERC-20 token transactions found for this address.";
                 container.appendChild(noTransactionsMessage);
             } else {
-                // Reverse the array to get the latest transfers first
-                transactions.reverse();
-
                 // Create a list to store token names and contract addresses
                 const tokenList = document.createElement("ul");
 
