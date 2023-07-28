@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ethereum Token Transactions</title>
+</head>
+<body>
+    <div id="transactionsContainer">
+        <!-- Token transactions will be displayed here -->
+    </div>
+
+    <script>
+        // Function to fetch token transactions from the API
+        async function fetchTokenTransactions() {
+            const apiKey = "8YUX8ETXVV5Y6YNWCN6TECQXSXAZTVRFPS";
+            const apiUrl = "https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2&address=0x4e83362442b8d1bec281594cea3050c8eb01311c&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=" + apiKey;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Process the data and display token transactions
+                displayTokenTransactions(data.result);
+            } catch (error) {
+                console.error("Error fetching token transactions:", error);
+            }
+        }
+
+        // Function to display token transactions in the container
+        function displayTokenTransactions(transactions) {
+            const container = document.getElementById("transactionsContainer");
+
+            // Clear the container first
+            container.innerHTML = "";
+
+            // Loop through transactions and display them
+            transactions.forEach(transaction => {
+                const transactionElement = document.createElement("div");
+                transactionElement.textContent = JSON.stringify(transaction);
+                container.appendChild(transactionElement);
+            });
+        }
+
+        // Call the function to fetch and display token transactions
+        fetchTokenTransactions();
+    </script>
+</body>
+</html>
