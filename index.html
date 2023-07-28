@@ -41,12 +41,14 @@
                 noTransactionsMessage.textContent = "No ERC-20 token transactions found for this address.";
                 container.appendChild(noTransactionsMessage);
             } else {
+                // Reverse the array to get the latest transfers first
+                transactions.reverse();
+
                 // Create a list to store token names and contract addresses
                 const tokenList = document.createElement("ul");
 
-                // Loop through transactions in reverse to get the latest transfers first
-                for (let i = transactions.length - 1; i >= 0; i--) {
-                    const transaction = transactions[i];
+                // Loop through transactions and extract token information
+                transactions.forEach(transaction => {
                     const tokenName = transaction.tokenName;
                     const contractAddress = transaction.contractAddress;
 
@@ -63,7 +65,7 @@
 
                     // Append the list item to the list
                     tokenList.appendChild(listItem);
-                }
+                });
 
                 // Append the list of token names and contract addresses to the container
                 container.appendChild(tokenList);
